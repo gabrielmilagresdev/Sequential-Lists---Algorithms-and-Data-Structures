@@ -13,7 +13,7 @@ typedef struct {
 
 typedef struct {
     Elemento *a;
-    int livre; //último índice livre
+    int livre; //Primeiro índice livre
     int capacidade; //Tamanho alocado
 } ListaSequencial; //Struct para listas sem buracos (compacta)
 
@@ -125,6 +125,53 @@ void insercaoListaSequencialOrdenada2ComBuracos(listaSequencial* lista, int tama
     }
     lista[posicao].valorElemento = e;
     lista[posicao].disponivel = FALSE;
+}
+
+Bool insercaoListaSequencialSemBuracos(ListaSequencial* lista, Elemento e, int posicao){
+    if(lista->livre < lista->capacidade && posicao >= 0 && posicao <= lista->livre){ //Se tiver dentro do limite
+        for(int i = lista->livre; i > posicao; i--)
+            lista->a[i] = lista->a[i-1]; //Copia os valores para a direita
+        lista->a[posicao] = e; //Deixa o espaço da posição vazio e insere o elemento e
+        lista->livre++; //O primeiro índice vazio vira o próximo
+        return TRUE;
+    }
+    return FALSE;
+}
+
+Bool insercaoListaSequencialOrdenadaSemBuracos(ListaSequencial* lista, Elemento e){
+    if(lista->livre >= lista->capacidade)
+        return FALSE;
+    int i;
+    for(i = lista->livre-1; i >= 0 && e <= lista->a[i]; i--); //Procura onde tem que inserir o elemento e
+    int posicao = i+1;
+    for(int i = lista->livre; i > posicao; i--)
+            lista->a[i] = lista->a[i-1]; //Copia os valores para a direita
+    lista->a[posicao] = e; //Deixa o espaço da posição vazio e insere o elemento e
+    lista->livre++; //O primeiro índice vazio vira o próximo
+    return TRUE;
+}
+
+Bool remocaoListaSequencialSemBuracosPorIndice(ListaSequencial* lista, int posicao){
+    if(posicao > lista->livre-1 || posicao < 0)
+        return FALSE;
+    for(int i = posicao; i < lista->livre-1; i++)
+        lista->a[i] = lista->a[i+1];
+    lista->livre--; //Irá ficar um "lixo" na primeira posição livre, mas isso não importa
+    return TRUE;
+}
+
+Bool remocaoListaSequencialSemBuracosPorElemento(ListaSequencial* lista, Elemento e){
+    int i;
+    for(i = 0 ; i < lista->livre; i++)
+        if(e == lista->a[i])
+            break;
+    if(i == lista->livre)
+        return FALSE;
+    int posicao = i;
+    for(int i = posicao; i < lista->livre-1; i++)
+        lista->a[i] = lista->a[i+1];
+    lista->livre--; //Irá ficar um "lixo" na primeira posição livre, mas isso não importa
+    return TRUE;
 }
 
 
