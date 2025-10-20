@@ -9,7 +9,13 @@ typedef int Bool;
 typedef struct {
     Elemento valorElemento;
     Bool disponivel;
-} listaSequencial;
+} listaSequencial; //Struct para listas com buracos
+
+typedef struct {
+    Elemento *a;
+    int livre; //último índice livre
+    int capacidade; //Tamanho alocado
+} ListaSequencial; //Struct para listas sem buracos (compacta)
 
 
 Bool buscaListaSequencial(Elemento* lista, int tamanho, Elemento e){
