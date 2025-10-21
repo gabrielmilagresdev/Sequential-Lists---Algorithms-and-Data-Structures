@@ -17,6 +17,23 @@ typedef struct {
     int capacidade; //Tamanho alocado
 } ListaSequencial; //Struct para listas sem buracos (compacta)
 
+ListaSequencial * cria_lista(){ //Criação estática
+	
+	ListaSequencial * lista =  (ListaSequencial *) malloc (sizeof(ListaSequencial));
+	lista->livre = 0;
+
+	return lista;
+}
+
+ListaSequencial * cria_lista(int capacidade){ //Criação dinâmica
+
+	ListaSequencial * lista =  (ListaSequencial *) malloc (sizeof(ListaSequencial));
+	lista->a = (Elemento *) malloc ((capacidade + 1) * sizeof(Elemento)); //Capacidade + 1 para poder utilizar busca com sentinela. Além de segurança
+	lista->capacidade = capacidade;
+	lista->livre = 0;
+
+	return lista;
+}
 
 Bool buscaListaSequencial(Elemento* lista, int tamanho, Elemento e){
     for(int i = 0; i < tamanho; i++)
