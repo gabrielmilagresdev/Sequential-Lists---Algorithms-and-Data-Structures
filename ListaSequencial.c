@@ -35,6 +35,11 @@ ListaSequencial * cria_lista(int capacidade){ //Criação dinâmica
 	return lista;
 }
 
+void destuir_lista(ListaSequencial* lista){
+    free(lista->a);
+    free(lista);
+}
+
 Bool buscaListaSequencial(Elemento* lista, int tamanho, Elemento e){
     for(int i = 0; i < tamanho; i++)
         if(lista[i] == e)
