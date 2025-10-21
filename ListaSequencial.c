@@ -35,7 +35,7 @@ ListaSequencial * cria_lista(int capacidade){ //Criação dinâmica
 	return lista;
 }
 
-void destuir_lista(ListaSequencial* lista){
+void destruir_lista(ListaSequencial* lista){
     free(lista->a);
     free(lista);
 }
