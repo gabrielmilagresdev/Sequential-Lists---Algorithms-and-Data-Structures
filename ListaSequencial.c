@@ -196,5 +196,21 @@ Bool remocaoListaSequencialSemBuracosPorElemento(ListaSequencial* lista, Element
     return TRUE;
 }
 
+Bool insercaoPilha(ListaSequencial* pilha, Elemento e){ //Função push
+    if(pilha->livre >= pilha->capacidade) //Verificando se a pilha está cheia
+        return FALSE;
+    pilha->a[pilha->livre] = e; //Inserção na última posição
+    pilha->livre++;
+    return TRUE;
+}
+
+Bool remocaoPilha(ListaSequencial* pilha, Elemento *e){ //Função pop
+    if(pilha->livre <= 0) //Lista está vazia, não tem o que remover
+        return FALSE;
+    *e = pilha->a[pilha->livre-1]; //Copiando o último valor para a variável e (criando dois returns)
+    pilha->livre--; //pilha->livre-1 representa o topo, é necessário atualizar o novo topo
+    return TRUE;
+}
+
 
 
