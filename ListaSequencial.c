@@ -17,6 +17,13 @@ typedef struct {
     int capacidade; //Tamanho alocado
 } ListaSequencial; //Struct para listas sem buracos (compacta)
 
+typedef struct {
+    Elemento *a;
+    int inicio;
+    int fim;
+    int capacidade;
+} Fila; //Struct para a fila
+
 ListaSequencial * cria_lista(){ //Criação estática
 	
 	ListaSequencial * lista =  (ListaSequencial *) malloc (sizeof(ListaSequencial));
@@ -212,5 +219,20 @@ Bool remocaoPilha(ListaSequencial* pilha, Elemento *e){ //Função pop
     return TRUE;
 }
 
+Bool insercaoFila(Fila* fila, Elemento e){
+    if(fila->capacidade < (fila->fim - fila->inicio)) //Fila está cheia
+        return FALSE;
+    fila->a[fila->fim % fila->capacidade] = e; //Adiciona no final da fila, implementação de uma fila circular utilizando os módulos
+    fila->fim++;
+    return TRUE;
+}
+
+Bool remocaoFila(Fila* fila, Elemento *e){
+    if(fila->fim - fila->inicio <= 0) //A fila está vazia
+        return FALSE;
+    *e = fila->a[fila->inicio % fila->capacidade];
+    fila->inicio++;
+    return TRUE;
+}
 
 
